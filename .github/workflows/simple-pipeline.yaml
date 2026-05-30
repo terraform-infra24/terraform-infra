@@ -1,0 +1,49 @@
+name: AWS CI/CD Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # ================= AWS =================
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::029730857940:role/pipeline_infra_role
+          aws-region: us-east-1
+
+      # ================= Terraform =================
+      - name: Terraform Init
+        run: |
+          cd accounts/dev
+          terraform init
+
+      - name: Terraform Format Check
+        run: |
+          cd accounts/dev
+          terraform fmt -check -recursive
+
+      - name: Terraform Validate
+        run: |
+          cd accounts/dev
+          terraform validate
+
+      - name: Terraform Apply
+        run: |
+          cd accounts/dev
+          terraform apply -auto-approve

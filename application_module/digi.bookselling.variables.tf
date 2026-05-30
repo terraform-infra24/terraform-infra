@@ -1,7 +1,7 @@
-variable "dev_bucket" {
+variable "bucket" {
   type        = string
   description = "This is used to pass the bucket name"
-  default     = "rajiv-bucket"
+  default     = "my-bucket"
 }
 
 variable "env" {
