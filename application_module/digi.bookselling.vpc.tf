@@ -42,7 +42,7 @@ resource "aws_subnet" "digi-pub-subnet1" {
 resource "aws_subnet" "digi-pub-subnet2" {
   vpc_id                  = aws_vpc.digi-vpc.id
   cidr_block              = "10.0.4.0/24"
-  availability_zone       = "us-ease-1b"
+  availability_zone       = "us-east-1b"
   map_public_ip_on_launch = true
   tags = {
     Name = "base-netowrk-pub-subnet2"
