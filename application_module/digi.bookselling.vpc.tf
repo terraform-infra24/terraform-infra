@@ -77,7 +77,7 @@ resource "aws_route" "digi-pub-route" {
 }
 
 resource "aws_eip" "digi-pub-eip" {
-  vpc = true
+  domain = "vpc"
 }
 
 resource "aws_nat_gateway" "digi-pub-nat" {
